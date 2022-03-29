@@ -11,7 +11,8 @@ public class Empty extends AbstractFigure implements Figure {
     }
 
     @Override
-    public void renewAccessible(Board board) {}
+    public void renewAccessible(Board board) {
+    }
 
     @Override
     public Colour getColour() {
@@ -19,7 +20,8 @@ public class Empty extends AbstractFigure implements Figure {
     }
 
     @Override
-    public void setColour(Colour colour) {}
+    public void setColour(Colour colour) {
+    }
 
     @Override
     public String toString() {

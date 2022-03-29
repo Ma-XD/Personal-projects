@@ -57,7 +57,7 @@ public class Game {
                 board = getPrevious(steps);
                 showBoard();
                 UI.whoseMove(board.getTurn());
-                return  Case.CONTINUE;
+                return Case.CONTINUE;
             }
 
             case RESTART -> {

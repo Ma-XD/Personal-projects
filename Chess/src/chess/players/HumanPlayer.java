@@ -14,7 +14,7 @@ public class HumanPlayer implements Player {
         Result result = UI.testAction();
 
         if (result != Result.UNKNOWN) {
-            return  result;
+            return result;
         }
 
         String cellFrom = result.getMessage().substring(0, 2);

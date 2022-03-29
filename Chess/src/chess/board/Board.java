@@ -28,9 +28,9 @@ public class Board {
             colour = getAnotherColour(colour);
         }
 
-        for(FigureName name: FigureName.values()) {
+        for (FigureName name : FigureName.values()) {
             WHITE_COUNTS.put(name, 0);
-            BLACK_COUNTS.put(name,0);
+            BLACK_COUNTS.put(name, 0);
         }
 
         turn = Colour.WHITE;
@@ -170,7 +170,7 @@ public class Board {
 
         String message = figure + ": " + move.toString();
 
-        if (findPosition(figure, move.to) ) {
+        if (findPosition(figure, move.to)) {
             return testMove(figure, move, message);
         }
 
@@ -218,7 +218,7 @@ public class Board {
             }
         } while (col != colTo);
 
-        if (dCol < 0 && getFigure(row, --col) .getName() != FigureName.EMPTY) {
+        if (dCol < 0 && getFigure(row, --col).getName() != FigureName.EMPTY) {
             return Result.UNKNOWN;
         }
 
@@ -335,7 +335,7 @@ public class Board {
 
                 Position from = figure.getPosition();
 
-                for(Position to: figure.getMoves()) {
+                for (Position to : figure.getMoves()) {
                     temp.makeMove(new Move(from, to));
                     Result tempResult = temp.testCheck(temp.getKing(currentColour));
                     temp = this.copy();
@@ -392,9 +392,9 @@ public class Board {
 
     private boolean kingsBishop(Colour colour) {
         return getCounts(colour, FigureName.BISHOP) == 1 &&
-                        getCounts(colour, FigureName.KNIGHT) == 0 &&
-                        getCounts(getAnotherColour(colour), FigureName.BISHOP) == 0 &&
-                        getCounts(getAnotherColour(colour), FigureName.KNIGHT) == 0;
+                getCounts(colour, FigureName.KNIGHT) == 0 &&
+                getCounts(getAnotherColour(colour), FigureName.BISHOP) == 0 &&
+                getCounts(getAnotherColour(colour), FigureName.KNIGHT) == 0;
     }
 
     private boolean kingsKnight(Colour colour) {

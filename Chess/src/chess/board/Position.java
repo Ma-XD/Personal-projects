@@ -10,7 +10,7 @@ public class Position {
 
     public Position(int row, int col) {
         if (row < 0 || col < 0 || row >= size || col >= size) {
-            throw  new InputMismatchException();
+            throw new InputMismatchException();
         }
         this.row = row;
         this.col = col;
@@ -21,7 +21,7 @@ public class Position {
         int col = strPos.charAt(0) - 'A';
 
         if (row < 0 || col < 0 || row >= size || col >= size) {
-            throw  new InputMismatchException();
+            throw new InputMismatchException();
         }
 
         this.row = row;
@@ -37,7 +37,7 @@ public class Position {
     }
 
     public String toString() {
-        return  strCol(col) + strRow(row);
+        return strCol(col) + strRow(row);
     }
 
     @Override

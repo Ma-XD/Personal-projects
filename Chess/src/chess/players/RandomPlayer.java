@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class RandomPlayer implements Player {
     private final Random random = new Random();
-    private final Map<Integer, FigureName> figureNumbers =  Map.of(
+    private final Map<Integer, FigureName> figureNumbers = Map.of(
             0, FigureName.QUEEN,
             1, FigureName.ROOK,
             2, FigureName.BISHOP,

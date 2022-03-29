@@ -38,7 +38,7 @@ public class CUI implements ChessUI {
             "BISHOP", FigureName.BISHOP,
             "KNIGHT", FigureName.KNIGHT
     );
-    private final  Map<String, Result> INPUT_ACTIONS = Map.of(
+    private final Map<String, Result> INPUT_ACTIONS = Map.of(
             "EXIT", Result.EXIT,
             "ROLLBACK", Result.ROLLBACK
     );
@@ -155,7 +155,7 @@ public class CUI implements ChessUI {
     }
 
     private boolean correctSteps(String steps) {
-        for (char ch: steps.toCharArray()) {
+        for (char ch : steps.toCharArray()) {
             if (!Character.isDigit(ch)) {
                 return false;
             }

@@ -58,7 +58,7 @@ public class GUI extends JFrame implements ChessUI {
     }
 
     private int getPanelX(int col) {
-        return  col * IMAGE_SIZE + PANEL_START;
+        return col * IMAGE_SIZE + PANEL_START;
     }
 
     private int getPanelY(int row) {
@@ -149,7 +149,7 @@ public class GUI extends JFrame implements ChessUI {
     private void drawPosition(Graphics g) {
         if (from != null) {
             Graphics2D g2D = (Graphics2D) g;
-            g2D.setStroke( new BasicStroke(3));
+            g2D.setStroke(new BasicStroke(3));
             g2D.setColor(Color.GREEN);
             g2D.drawRect(
                     getPanelX(from.col),
@@ -158,7 +158,7 @@ public class GUI extends JFrame implements ChessUI {
                     IMAGE_SIZE
             );
 
-            for (Position pos: board.getFigure(from).getMoves()) {
+            for (Position pos : board.getFigure(from).getMoves()) {
                 drawPoint(pos, g2D);
             }
         }
