@@ -25,7 +25,7 @@ public class GUI extends JFrame implements ChessUI {
     private boolean rollBack;
     private boolean restart;
     private final String[] moves = new String[6];
-    private final int LINE_HEIGHT = IMAGE_SIZE / (moves.length);
+    private final int LINE_HEIGHT = IMAGE_SIZE / moves.length;
 
     public GUI() {
         Arrays.fill(moves, "");
@@ -57,6 +57,14 @@ public class GUI extends JFrame implements ChessUI {
         add(backButton);
     }
 
+    private int getPanelX(int col) {
+        return  col * IMAGE_SIZE + PANEL_START;
+    }
+
+    private int getPanelY(int row) {
+        return row * IMAGE_SIZE + PANEL_START;
+    }
+
     private void initBoardPanel() {
         JPanel panel = new JPanel() {
 
@@ -64,12 +72,13 @@ public class GUI extends JFrame implements ChessUI {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 drawHistory(g);
+
                 g.drawRect(PANEL_START, PANEL_START, PANEL_SIZE, PANEL_SIZE);
 
                 for (int col = 0; col < SIZE; col++) {
                     g.drawImage(
                             getImage(Character.toString(col + 'A')),
-                            PANEL_START + col * IMAGE_SIZE, 0,
+                            GUI.this.getPanelX(col), 0,
                             this
                     );
                 }
@@ -77,7 +86,7 @@ public class GUI extends JFrame implements ChessUI {
                 for (int row = 0; row < SIZE; row++) {
                     g.drawImage(
                             getImage(Integer.toString(SIZE - row)),
-                            0, PANEL_START + row * IMAGE_SIZE,
+                            0, GUI.this.getPanelY(row),
                             this
                     );
 
@@ -85,6 +94,8 @@ public class GUI extends JFrame implements ChessUI {
                         drawCell(g, row, col);
                     }
                 }
+
+                drawPosition(g);
             }
         };
 
@@ -92,6 +103,7 @@ public class GUI extends JFrame implements ChessUI {
         panel.setPreferredSize(new Dimension(PANEL_SIZE, PANEL_SIZE));
         add(panel);
     }
+
 
     private void drawHistory(Graphics g) {
         int start = PANEL_SIZE + IMAGE_SIZE;
@@ -106,8 +118,8 @@ public class GUI extends JFrame implements ChessUI {
 
         if (cell.colour == Colour.BLACK) {
             g.fillRect(
-                    col * IMAGE_SIZE + PANEL_START,
-                    row * IMAGE_SIZE + PANEL_START,
+                    getPanelX(col),
+                    getPanelY(row),
                     IMAGE_SIZE,
                     IMAGE_SIZE
             );
@@ -116,8 +128,8 @@ public class GUI extends JFrame implements ChessUI {
         if (figure.getName() != FigureName.EMPTY) {
             g.drawImage(
                     getImage(figure.getColour() + "_" + figure.getName()),
-                    col * IMAGE_SIZE + PANEL_START,
-                    row * IMAGE_SIZE + PANEL_START,
+                    getPanelX(col),
+                    getPanelY(row),
                     this
             );
         }
@@ -132,6 +144,34 @@ public class GUI extends JFrame implements ChessUI {
 
     private String getImagePath(String name) {
         return "src/chess/images/" + name + ".png";
+    }
+
+    private void drawPosition(Graphics g) {
+        if (from != null) {
+            Graphics2D g2D = (Graphics2D) g;
+            g2D.setStroke( new BasicStroke(3));
+            g2D.setColor(Color.GREEN);
+            g2D.drawRect(
+                    getPanelX(from.col),
+                    getPanelY(from.row),
+                    IMAGE_SIZE,
+                    IMAGE_SIZE
+            );
+
+            for (Position pos: board.getFigure(from).getMoves()) {
+                drawPoint(pos, g2D);
+            }
+        }
+    }
+
+    private void drawPoint(Position pos, Graphics2D g2D) {
+        int pointRadius = 4;
+        g2D.fillOval(
+                getPanelX(pos.col) + IMAGE_SIZE / 2 - pointRadius,
+                getPanelY(pos.row) + IMAGE_SIZE / 2 - pointRadius,
+                pointRadius * 2,
+                pointRadius * 2
+        );
     }
 
     class MyMouseAdapter extends MouseAdapter {
@@ -150,6 +190,7 @@ public class GUI extends JFrame implements ChessUI {
         private void setPos(Position position) {
             if (board.getTurn() == board.getFigure(position).getColour()) {
                 from = position;
+                repaint();
             } else if (from != null) {
                 to = position;
             }
@@ -219,6 +260,7 @@ public class GUI extends JFrame implements ChessUI {
                 Result res = Result.UNKNOWN.setMessage(from.toString() + to.toString());
                 from = null;
                 to = null;
+                repaint();
                 return res;
             }
 

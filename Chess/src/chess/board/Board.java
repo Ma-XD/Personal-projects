@@ -160,9 +160,9 @@ public class Board {
     }
 
     public Result move(Move move) {
-        int curRow = move.from.row;
-        int curCol = move.from.col;
-        Figure figure = getFigure(curRow, curCol);
+        int rowFrom = move.from.row;
+        int colFrom = move.from.col;
+        Figure figure = getFigure(rowFrom, colFrom);
 
         if (figure.getColour() != turn) {
             return Result.ERROR.setMessage("Invalid figure for moving: " + figure.getName() + " on " + move.from);
@@ -218,7 +218,7 @@ public class Board {
             }
         } while (col != colTo);
 
-        if (dCol < 0 && getFigure(row, --col).getName() != FigureName.EMPTY) {
+        if (dCol < 0 && getFigure(row, --col) .getName() != FigureName.EMPTY) {
             return Result.UNKNOWN;
         }
 

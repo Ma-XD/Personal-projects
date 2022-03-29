@@ -32,7 +32,7 @@ public abstract class LinearFigure extends AbstractFigure implements Figure {
                 return;
             }
 
-            if (!validPosition(board, row, col)) {
+            if (!vacantPosition(board, row, col)) {
                 return;
             }
         }

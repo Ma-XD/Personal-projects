@@ -1,7 +1,6 @@
 package chess.figures;
 
 import chess.board.Board;
-import chess.board.Position;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ public class Knight extends AbstractFigure implements Figure {
                     int row = position.row + distance[i] * direction[j] ;
                     int col = position.col + distance[1 - i] * direction[k];
 
-                    validPosition(board, row, col);
+                    vacantPosition(board, row, col);
                 }
             }
         }

@@ -62,7 +62,7 @@ public abstract class AbstractFigure implements Figure {
         return newFigure;
     }
 
-    protected boolean validPosition(Board board, int row, int col) {
+    protected boolean vacantPosition(Board board, int row, int col) {
         if (!board.isInside(row, col)) {
             return false;
         }
