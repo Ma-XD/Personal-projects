@@ -41,7 +41,7 @@ public class Game {
                 case END -> {
                     return;
                 }
-                default -> throw new IllegalArgumentException("Unexpected value: " + aCase);
+                default -> {}
             }
         }
     }
@@ -98,6 +98,7 @@ public class Game {
                 case ROLLBACK, RESTART, EXIT -> {
                     return getCase(result);
                 }
+                default -> {}
             }
         }
     }
