@@ -19,6 +19,7 @@ public class GUI extends JFrame implements ChessUI {
     private final int IMAGE_SIZE = 80;
     private final int PANEL_START = IMAGE_SIZE;
     private final int PANEL_SIZE = IMAGE_SIZE * SIZE;
+    private final int SLEEP = 200;
     private Board board = new Board();
     private Position from;
     private Position to;
@@ -257,7 +258,7 @@ public class GUI extends JFrame implements ChessUI {
         while (true) {
 
             if (from != null && to != null) {
-                Result res = Result.UNKNOWN.setMessage(from.toString() + to.toString());
+                Result res = Result.UNKNOWN.setMessage(from + to.toString());
                 from = null;
                 to = null;
                 repaint();
@@ -275,7 +276,7 @@ public class GUI extends JFrame implements ChessUI {
             }
 
             try {
-                Thread.sleep(500);
+                Thread.sleep(SLEEP);
             } catch (InterruptedException ignored) {
             }
         }
