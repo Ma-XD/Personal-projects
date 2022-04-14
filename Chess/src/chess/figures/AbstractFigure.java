@@ -10,7 +10,7 @@ public abstract class AbstractFigure implements Figure {
     protected Colour colour;
     protected Position position;
     protected boolean isMoved = false;
-    protected List<Position> moves;
+    protected List<Position> legalMoves;
 
     @Override
     public Colour getColour() {
@@ -48,8 +48,8 @@ public abstract class AbstractFigure implements Figure {
     }
 
     @Override
-    public List<Position> getMoves() {
-        return moves;
+    public List<Position> getLegalMoves() {
+        return legalMoves;
     }
 
     @Override
@@ -73,13 +73,13 @@ public abstract class AbstractFigure implements Figure {
         if (figure.getName() != FigureName.EMPTY) {
 
             if (figure.getColour() != this.colour) {
-                moves.add(position);
+                legalMoves.add(position);
             }
 
             return false;
         }
 
-        moves.add(position);
+        legalMoves.add(position);
         return true;
     }
 

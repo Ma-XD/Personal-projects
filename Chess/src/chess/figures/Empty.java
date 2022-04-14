@@ -3,7 +3,7 @@ package chess.figures;
 import chess.board.Board;
 import chess.board.Colour;
 
-public class Empty extends AbstractFigure implements Figure {
+public class Empty extends AbstractFigure {
 
     @Override
     public FigureName getName() {
@@ -11,7 +11,7 @@ public class Empty extends AbstractFigure implements Figure {
     }
 
     @Override
-    public void renewAccessible(Board board) {
+    public void renewLegalMoves(Board board) {
     }
 
     @Override

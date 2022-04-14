@@ -4,11 +4,11 @@ import chess.board.Board;
 
 import java.util.ArrayList;
 
-public abstract class LinearFigure extends AbstractFigure implements Figure {
+public abstract class LinearFigure extends AbstractFigure{
 
     @Override
-    public void renewAccessible(Board board) {
-        moves = new ArrayList<>();
+    public void renewLegalMoves(Board board) {
+        legalMoves = new ArrayList<>();
 
         for (int dRow = -1; dRow <= 1; dRow++) {
             for (int dCol = -1; dCol <= 1; dCol++) {

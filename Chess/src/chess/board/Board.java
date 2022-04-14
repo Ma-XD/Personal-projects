@@ -133,7 +133,7 @@ public class Board {
         renewCounts(figure, 1);
         figure.setPosition(position);
         cells[position.row][position.col].figure = figure;
-        renewAllAccessible();
+        renewAllMoves();
     }
 
     private void renewCounts(Figure figure, int add) {
@@ -150,11 +150,11 @@ public class Board {
         }
     }
 
-    private void renewAllAccessible() {
+    private void renewAllMoves() {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 Figure figure = getFigure(row, col);
-                figure.renewAccessible(this);
+                figure.renewLegalMoves(this);
             }
         }
     }
@@ -168,7 +168,7 @@ public class Board {
             return Result.ERROR.setMessage("Invalid figure for moving: " + figure.getName() + " on " + move.from);
         }
 
-        String message = figure + ": " + move.toString();
+        String message = figure + ": " + move;
 
         if (findPosition(figure, move.to)) {
             return testMove(figure, move, message);
@@ -178,13 +178,13 @@ public class Board {
             return testMove(figure, move, message + ", " + Result.CASTLING);
         }
 
-        return Result.ERROR.setMessage("Invalid move: " + move.toString());
+        return Result.ERROR.setMessage("Invalid move: " + move);
     }
 
     private boolean findPosition(Figure figure, Position next) {
-        List<Position> accessible = figure.getMoves();
+        List<Position> legalMoves = figure.getLegalMoves();
 
-        for (Position pos : accessible) {
+        for (Position pos : legalMoves) {
             if (pos.equals(next)) {
                 return true;
             }
@@ -238,7 +238,7 @@ public class Board {
         Result result = testCheck(getKing(turn));
 
         if (result == Result.CHECK) {
-            return Result.ERROR.setMessage("Invalid move: " + move.toString() + ", because check");
+            return Result.ERROR.setMessage("Invalid move: " + move + ", because check");
         }
 
         result.setMessage(message);
@@ -335,7 +335,7 @@ public class Board {
 
                 Position from = figure.getPosition();
 
-                for (Position to : figure.getMoves()) {
+                for (Position to : figure.getLegalMoves()) {
                     temp.makeMove(new Move(from, to));
                     Result tempResult = temp.testCheck(temp.getKing(currentColour));
                     temp = this.copy();

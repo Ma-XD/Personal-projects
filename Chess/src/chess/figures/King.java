@@ -1,6 +1,6 @@
 package chess.figures;
 
-public class King extends LinearFigure implements Figure {
+public class King extends LinearFigure {
 
     @Override
     protected boolean incorrectMoveImpl(int row, int col, int dRow, int dCol) {

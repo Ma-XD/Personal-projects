@@ -6,7 +6,7 @@ import chess.board.Position;
 
 import java.util.ArrayList;
 
-public class Pawn extends AbstractFigure implements Figure {
+public class Pawn extends AbstractFigure {
     private int dRow;
 
     public void setColour(Colour colour) {
@@ -20,8 +20,8 @@ public class Pawn extends AbstractFigure implements Figure {
     }
 
     @Override
-    public void renewAccessible(Board board) {
-        moves = new ArrayList<>();
+    public void renewLegalMoves(Board board) {
+        legalMoves = new ArrayList<>();
 
         int row = position.row + dRow;
 
@@ -41,19 +41,19 @@ public class Pawn extends AbstractFigure implements Figure {
         Position position = new Position(row, col);
 
         if (dCol == 0 && figure.getName() == FigureName.EMPTY) {
-            moves.add(position);
+            legalMoves.add(position);
             int nextRow = row + dRow;
 
             if (board.isInside(nextRow, col) && !isMoved &&
                     board.getFigure(nextRow, col).getName() == FigureName.EMPTY
             ) {
-                moves.add(new Position(nextRow, col));
+                legalMoves.add(new Position(nextRow, col));
             }
 
         } else if (dCol != 0 && figure.getName() != FigureName.EMPTY) {
 
             if (figure.getColour() != colour) {
-                moves.add(position);
+                legalMoves.add(position);
             }
         }
     }

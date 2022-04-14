@@ -1,6 +1,6 @@
 package chess.figures;
 
-public class Bishop extends LinearFigure implements Figure {
+public class Bishop extends LinearFigure {
 
     @Override
     protected boolean incorrectMoveImpl(int row, int col, int dRow, int dCol) {

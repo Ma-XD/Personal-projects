@@ -158,7 +158,7 @@ public class GUI extends JFrame implements ChessUI {
                     IMAGE_SIZE
             );
 
-            for (Position pos : board.getFigure(from).getMoves()) {
+            for (Position pos : board.getFigure(from).getLegalMoves()) {
                 drawPoint(pos, g2D);
             }
         }

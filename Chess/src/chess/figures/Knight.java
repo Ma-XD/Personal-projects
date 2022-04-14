@@ -4,7 +4,7 @@ import chess.board.Board;
 
 import java.util.ArrayList;
 
-public class Knight extends AbstractFigure implements Figure {
+public class Knight extends AbstractFigure {
     private static final int[] distance = new int[]{1, 2};
     private static final int[] direction = new int[]{-1, 1};
 
@@ -14,8 +14,8 @@ public class Knight extends AbstractFigure implements Figure {
     }
 
     @Override
-    public void renewAccessible(Board board) {
-        moves = new ArrayList<>();
+    public void renewLegalMoves(Board board) {
+        legalMoves = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {

@@ -23,9 +23,9 @@ public interface Figure {
 
     boolean getMoveStatus();
 
-    List<Position> getMoves();
+    List<Position> getLegalMoves();
 
-    void renewAccessible(Board board);
+    void renewLegalMoves(Board board);
 
     Figure copy();
 }
