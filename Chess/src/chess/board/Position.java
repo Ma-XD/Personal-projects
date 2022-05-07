@@ -17,15 +17,7 @@ public class Position {
     }
 
     public Position(String strPos) {
-        int row = size - strPos.charAt(1) + '0';
-        int col = strPos.charAt(0) - 'A';
-
-        if (row < 0 || col < 0 || row >= size || col >= size) {
-            throw new InputMismatchException();
-        }
-
-        this.row = row;
-        this.col = col;
+        this(size - strPos.charAt(1) + '0',strPos.charAt(0) - 'A');
     }
 
     public static String strRow(int row) {
@@ -45,14 +37,12 @@ public class Position {
         if (this == o) {
             return true;
         }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+        if (o instanceof Position) {
+            Position position = (Position) o;
+            return row == position.row &&
+                    col == position.col;
         }
-
-        Position position = (Position) o;
-        return row == position.row &&
-                col == position.col;
+        return false;
     }
 
     @Override
