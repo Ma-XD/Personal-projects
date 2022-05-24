@@ -3,7 +3,6 @@ package chess.figures;
 import chess.board.Board;
 import chess.board.Colour;
 import chess.board.Position;
-
 import java.util.ArrayList;
 
 public class Pawn extends AbstractFigure {
@@ -24,7 +23,6 @@ public class Pawn extends AbstractFigure {
         legalMoves = new ArrayList<>();
 
         int row = position.row + dRow;
-
         for (int dCol = -1; dCol <= 1; dCol++) {
             checkRoute(board, row, dCol);
         }
@@ -36,7 +34,6 @@ public class Pawn extends AbstractFigure {
         if (!board.isInside(row, col)) {
             return;
         }
-
         Figure figure = board.getFigure(row, col);
         Position position = new Position(row, col);
 
@@ -49,9 +46,7 @@ public class Pawn extends AbstractFigure {
             ) {
                 legalMoves.add(new Position(nextRow, col));
             }
-
         } else if (dCol != 0 && figure.getName() != FigureName.EMPTY) {
-
             if (figure.getColour() != colour) {
                 legalMoves.add(position);
             }

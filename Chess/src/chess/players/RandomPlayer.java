@@ -29,7 +29,6 @@ public class RandomPlayer implements Player {
 
         Position from = new Position(rowFrom, colFrom);
         Position to = new Position(rowTo, colTo);
-
         Result result = board.move(new Move(from, to));
 
         if (result == Result.REPLACE) {
@@ -37,7 +36,6 @@ public class RandomPlayer implements Player {
             board.createFigure(figureName, board.getTurn(), to.toString());
             result = board.changeOfMove(", PAWN -> " + figureName);
         }
-
         return result;
     }
 }

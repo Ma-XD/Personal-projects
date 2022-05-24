@@ -1,7 +1,6 @@
 package chess.figures;
 
 import chess.board.Board;
-
 import java.util.ArrayList;
 
 public class Knight extends AbstractFigure {

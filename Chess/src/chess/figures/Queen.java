@@ -3,7 +3,7 @@ package chess.figures;
 public class Queen extends LinearFigure {
 
     @Override
-    protected boolean incorrectMoveImpl(int row, int col, int dRow, int dCol) {
+    protected boolean incorrectMoveImpl(int dRow, int dCol) {
         return false;
     }
 

@@ -5,7 +5,6 @@ import chess.board.Colour;
 import chess.figures.FigureName;
 import chess.interfaces.ChessUI;
 import chess.players.Player;
-
 import java.util.ArrayDeque;
 
 public class Game {
@@ -52,7 +51,6 @@ public class Game {
                 board = history.pop();
                 return Case.CONTINUE;
             }
-
             case ROLLBACK -> {
                 int steps = Integer.parseInt(result.getMessage());
                 board = getPrevious(steps);
@@ -60,7 +58,6 @@ public class Game {
                 UI.whoseMove(board.getTurn());
                 return Case.CONTINUE;
             }
-
             case RESTART -> {
                 history.clear();
                 board = new Board();
@@ -68,18 +65,15 @@ public class Game {
                 showBoard();
                 return Case.START;
             }
-
             case EXIT -> {
                 UI.endMessage("EXIT");
                 return Case.END;
             }
-
             case CHECKMATE, STALEMATE, DRAW -> {
                 showBoard();
                 UI.endMessage(result.toString());
                 return nextAction();
             }
-
             default -> {
                 showBoard();
                 UI.whoseMove(board.getTurn());
@@ -90,7 +84,6 @@ public class Game {
 
     private Case nextAction() {
         history.push(board.copy());
-
         while (true) {
             Result result = UI.testAction();
 
@@ -110,7 +103,6 @@ public class Game {
             }
             history.pop();
         }
-
         return history.pop();
     }
 

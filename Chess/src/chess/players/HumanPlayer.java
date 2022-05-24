@@ -16,7 +16,6 @@ public class HumanPlayer implements Player {
         if (result != Result.UNKNOWN) {
             return result;
         }
-
         String cellFrom = result.getMessage().substring(0, 2);
         String cellTo = result.getMessage().substring(2, 4);
         result = board.move(new Move(new Position(cellFrom), new Position(cellTo)));
@@ -25,13 +24,11 @@ public class HumanPlayer implements Player {
             UI.invalidMove(result.getMessage());
             return result;
         }
-
         if (result == Result.REPLACE) {
             FigureName figureName = UI.selectFigure(cellTo);
             board.createFigure(figureName, board.getTurn(), cellTo);
             result = board.changeOfMove(", PAWN -> " + figureName);
         }
-
         return result;
     }
 }

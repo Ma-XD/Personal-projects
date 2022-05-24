@@ -107,7 +107,6 @@ public class CUI implements ChessUI {
             if (INPUT_FIGURES.containsKey(figureName)) {
                 return INPUT_FIGURES.get(figureName);
             }
-
             invalidMove("Invalid input for figure: " + figureName + ", choose QUEEN, ROOK, BISHOP or KNIGHT");
         }
     }
@@ -121,14 +120,12 @@ public class CUI implements ChessUI {
             if (INPUT_ACTIONS.containsKey(input)) {
                 return getAction(input);
             }
-
             String from = input;
             String to = in.next();
 
             if (correctInput(from, to)) {
                 return Result.UNKNOWN.setMessage(from + to);
             }
-
             invalidMove("Invalid input: position consist of letter in A..H and number in 1..8");
         }
     }
@@ -138,18 +135,15 @@ public class CUI implements ChessUI {
         if (INPUT_ACTIONS.get(input) == Result.ROLLBACK) {
             Result.ROLLBACK.setMessage(getSteps());
         }
-
         return INPUT_ACTIONS.get(input);
     }
 
     private String getSteps() {
         while (true) {
             String steps = in.next();
-
             if (correctSteps(steps)) {
                 return steps;
             }
-
             invalidMove("Incorrect number of roll back steps: " + steps);
         }
     }
@@ -160,7 +154,6 @@ public class CUI implements ChessUI {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -174,7 +167,6 @@ public class CUI implements ChessUI {
         for (int col = 0; col < board.getSize(); col++) {
             sb.append(Position.strCol(col)).append(".");
         }
-
         for (int row = 0; row < board.getSize(); row++) {
             sb.append("\n");
             sb.append(Position.strRow(row)).append(". ");
@@ -183,7 +175,6 @@ public class CUI implements ChessUI {
                 Cell cell = board.getCell(row, col);
                 Figure figure = cell.figure;
                 char ch;
-
                 if (figure.getColour() == Colour.WHITE ||
                         figure.getName() == FigureName.EMPTY && cell.colour == Colour.WHITE
                 ) {
@@ -191,7 +182,6 @@ public class CUI implements ChessUI {
                 } else {
                     ch = BLACK_FIGURES.get(figure.getName());
                 }
-
                 sb.append(ch).append(' ');
             }
         }

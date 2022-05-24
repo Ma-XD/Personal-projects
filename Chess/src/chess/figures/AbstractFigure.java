@@ -3,7 +3,6 @@ package chess.figures;
 import chess.board.Board;
 import chess.board.Colour;
 import chess.board.Position;
-
 import java.util.List;
 
 public abstract class AbstractFigure implements Figure {
@@ -66,19 +65,15 @@ public abstract class AbstractFigure implements Figure {
         if (!board.isInside(row, col)) {
             return false;
         }
-
         Figure figure = board.getFigure(row, col);
         Position position = new Position(row, col);
 
         if (figure.getName() != FigureName.EMPTY) {
-
             if (figure.getColour() != this.colour) {
                 legalMoves.add(position);
             }
-
             return false;
         }
-
         legalMoves.add(position);
         return true;
     }

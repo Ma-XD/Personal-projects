@@ -36,7 +36,7 @@ public class GUI extends JFrame implements ChessUI {
     }
 
     private void initGUI() {
-        pack();
+        //pack();
         setTitle("Chess board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(734, 837);
@@ -73,7 +73,6 @@ public class GUI extends JFrame implements ChessUI {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 drawHistory(g);
-
                 g.drawRect(PANEL_START, PANEL_START, PANEL_SIZE, PANEL_SIZE);
 
                 for (int col = 0; col < SIZE; col++) {
@@ -83,23 +82,19 @@ public class GUI extends JFrame implements ChessUI {
                             this
                     );
                 }
-
                 for (int row = 0; row < SIZE; row++) {
                     g.drawImage(
                             getImage(Integer.toString(SIZE - row)),
                             0, GUI.this.getPanelY(row),
                             this
                     );
-
                     for (int col = 0; col < SIZE; col++) {
                         drawCell(g, row, col);
                     }
                 }
-
                 drawPosition(g);
             }
         };
-
         panel.addMouseListener(new MyMouseAdapter());
         panel.setPreferredSize(new Dimension(PANEL_SIZE, PANEL_SIZE));
         add(panel);
@@ -116,7 +111,6 @@ public class GUI extends JFrame implements ChessUI {
     private void drawCell(Graphics g, int row, int col) {
         Cell cell = board.getCell(row, col);
         Figure figure = cell.figure;
-
         if (cell.colour == Colour.BLACK) {
             g.fillRect(
                     getPanelX(col),
@@ -125,7 +119,6 @@ public class GUI extends JFrame implements ChessUI {
                     IMAGE_SIZE
             );
         }
-
         if (figure.getName() != FigureName.EMPTY) {
             g.drawImage(
                     getImage(figure.getColour() + "_" + figure.getName()),
@@ -139,7 +132,6 @@ public class GUI extends JFrame implements ChessUI {
     private Image getImage(String name) {
         String filename = getImagePath(name);
         ImageIcon icon = new ImageIcon(filename);
-
         return icon.getImage();
     }
 
@@ -158,7 +150,6 @@ public class GUI extends JFrame implements ChessUI {
                     IMAGE_SIZE,
                     IMAGE_SIZE
             );
-
             for (Position pos : board.getFigure(from).getLegalMoves()) {
                 drawPoint(pos, g2D);
             }
@@ -249,14 +240,12 @@ public class GUI extends JFrame implements ChessUI {
             selectFigure = name;
             dialog.dispose();
         });
-
         return button;
     }
 
     @Override
     public Result testAction() {
         while (true) {
-
             if (from != null && to != null) {
                 Result res = Result.UNKNOWN.setMessage(from + to.toString());
                 from = null;
@@ -264,17 +253,14 @@ public class GUI extends JFrame implements ChessUI {
                 repaint();
                 return res;
             }
-
             if (rollBack) {
                 rollBack = false;
                 return Result.ROLLBACK.setMessage("1");
             }
-
             if (restart) {
                 restart = false;
                 return Result.RESTART;
             }
-
             try {
                 Thread.sleep(SLEEP);
             } catch (InterruptedException ignored) {

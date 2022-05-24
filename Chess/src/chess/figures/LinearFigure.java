@@ -1,7 +1,6 @@
 package chess.figures;
 
 import chess.board.Board;
-
 import java.util.ArrayList;
 
 public abstract class LinearFigure extends AbstractFigure{
@@ -12,7 +11,6 @@ public abstract class LinearFigure extends AbstractFigure{
 
         for (int dRow = -1; dRow <= 1; dRow++) {
             for (int dCol = -1; dCol <= 1; dCol++) {
-
                 if (dCol != 0 || dRow != 0) {
                     checkRoute(board, dRow, dCol);
                 }
@@ -27,16 +25,14 @@ public abstract class LinearFigure extends AbstractFigure{
         while (true) {
             row += dRow;
             col += dCol;
-
-            if (incorrectMoveImpl(row, col, dRow, dCol)) {
+            if (incorrectMoveImpl(dRow, dCol)) {
                 return;
             }
-
             if (!vacantPosition(board, row, col)) {
                 return;
             }
         }
     }
 
-    abstract boolean incorrectMoveImpl(int row, int col, int dRow, int dCol);
+    abstract boolean incorrectMoveImpl(int dRow, int dCol);
 }
