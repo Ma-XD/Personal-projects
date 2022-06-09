@@ -5,6 +5,7 @@ import chess.board.Colour;
 import chess.figures.FigureName;
 import chess.interfaces.ChessUI;
 import chess.players.Player;
+
 import java.util.ArrayDeque;
 
 public class Game {
@@ -40,7 +41,8 @@ public class Game {
                 case END -> {
                     return;
                 }
-                default -> {}
+                default -> {
+                }
             }
         }
     }
@@ -91,7 +93,8 @@ public class Game {
                 case ROLLBACK, RESTART, EXIT -> {
                     return getCase(result);
                 }
-                default -> {}
+                default -> {
+                }
             }
         }
     }

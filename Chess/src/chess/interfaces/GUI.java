@@ -20,7 +20,7 @@ public class GUI extends JFrame implements ChessUI {
     private final int PANEL_START = IMAGE_SIZE;
     private final int PANEL_SIZE = IMAGE_SIZE * SIZE;
     private final int SLEEP = 100;
-    private Board board = new Board();
+    private Board board;
     private Position from;
     private Position to;
     private boolean rollBack;

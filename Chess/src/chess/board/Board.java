@@ -184,12 +184,7 @@ public class Board {
     private Result testMove(Figure figure, Move move, String message) {
         makeMove(move);
 
-        if (figure.getName() == FigureName.KING && Math.abs(move.from.col - move.to.col) == 2) {
-            int dCol = (move.to.col - move.from.col) / 2;
-            int rookCol = dCol < 0 ? 0 : SIZE - 1;
-            Position rookFrom = new Position(move.from.row, rookCol);
-            Position rookTo =  new Position(move.from.row, move.to.col - dCol);
-            makeMove(new Move(rookFrom, rookTo));
+        if (isCastling(figure, move)) {
             message += ", CASTLING";
         }
         Result result = testCheck(getKing(turn));
@@ -211,6 +206,18 @@ public class Board {
         figure.setMoveStatus(true);
         putFigure(new Empty(), move.from);
         putFigure(figure, move.to);
+    }
+
+    private boolean isCastling(Figure figure, Move move) {
+        if (figure.getName() == FigureName.KING && Math.abs(move.from.col - move.to.col) == 2) {
+            int dCol = (move.to.col - move.from.col) / 2;
+            int rookCol = dCol < 0 ? 0 : SIZE - 1;
+            Position rookFrom = new Position(move.from.row, rookCol);
+            Position rookTo = new Position(move.from.row, move.to.col - dCol);
+            makeMove(new Move(rookFrom, rookTo));
+            return true;
+        }
+        return false;
     }
 
     private Figure getKing(Colour colour) {

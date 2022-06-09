@@ -1,6 +1,7 @@
 package chess.figures;
 
 import chess.board.Board;
+
 import java.util.ArrayList;
 
 public class King extends AbstractFigure {
@@ -17,7 +18,7 @@ public class King extends AbstractFigure {
         for (int dRow = -1; dRow <= 1; dRow++) {
             for (int dCol = -1; dCol <= 1; dCol++) {
                 if (dCol != 0 || dRow != 0) {
-                    vacantPosition(board,position.row + dRow, position.col + dCol);
+                    vacantPosition(board, position.row + dRow, position.col + dCol);
                 }
             }
         }
