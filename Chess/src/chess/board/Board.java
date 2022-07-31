@@ -149,9 +149,13 @@ public class Board {
         for (int row = 0; row < SIZE; row++) {
             for (int col = 0; col < SIZE; col++) {
                 Figure figure = getFigure(row, col);
-                figure.renewLegalMoves(this);
+                if (figure.getName() != FigureName.KING) {
+                    figure.renewLegalMoves(this);
+                }
             }
         }
+        getKing(Colour.WHITE).renewLegalMoves(this);
+        getKing(Colour.BLACK).renewLegalMoves(this);
     }
 
     public Result move(Move move) {

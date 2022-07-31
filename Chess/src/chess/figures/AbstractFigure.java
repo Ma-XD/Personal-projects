@@ -3,13 +3,15 @@ package chess.figures;
 import chess.board.Board;
 import chess.board.Colour;
 import chess.board.Position;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractFigure implements Figure {
     protected Colour colour;
     protected Position position;
     protected boolean isMoved = false;
-    protected List<Position> legalMoves;
+    protected List<Position> legalMoves = new ArrayList<>();
 
     @Override
     public Colour getColour() {
