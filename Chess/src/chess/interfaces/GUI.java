@@ -15,15 +15,14 @@ import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 public class GUI extends JFrame implements ChessUI {
-    private final int SIZE = 8;
-    private final int IMAGE_SIZE = 80;
-    private final int PANEL_START = IMAGE_SIZE;
-    private final int PANEL_SIZE = IMAGE_SIZE * SIZE;
+    private static final int IMAGE_SIZE = 80;
+    private static final int PANEL_START = IMAGE_SIZE;
+    private static final int PANEL_SIZE = IMAGE_SIZE * Board.SIZE;
     private Board board;
-    private volatile Position from;
-    private volatile Position to;
-    private volatile boolean rollBack;
-    private volatile boolean restart;
+    private Position from;
+    private Position to;
+    private boolean rollBack;
+    private boolean restart;
     private final String[] moves = new String[6];
     private final int LINE_HEIGHT = IMAGE_SIZE / moves.length;
 
@@ -83,7 +82,7 @@ public class GUI extends JFrame implements ChessUI {
                 drawHistory(g);
                 g.drawRect(PANEL_START, PANEL_START, PANEL_SIZE, PANEL_SIZE);
 
-                for (int col = 0; col < SIZE; col++) {
+                for (int col = 0; col < Board.SIZE; col++) {
                     g.drawImage(
                             getImage(Character.toString(col + 'A')),
                             GUI.this.getPanelX(col),
@@ -91,14 +90,14 @@ public class GUI extends JFrame implements ChessUI {
                             this
                     );
                 }
-                for (int row = 0; row < SIZE; row++) {
+                for (int row = 0; row < Board.SIZE; row++) {
                     g.drawImage(
-                            getImage(Integer.toString(SIZE - row)),
+                            getImage(Integer.toString(Board.SIZE - row)),
                             0,
                             GUI.this.getPanelY(row),
                             this
                     );
-                    for (int col = 0; col < SIZE; col++) {
+                    for (int col = 0; col < Board.SIZE; col++) {
                         drawCell(g, row, col);
                     }
                 }
@@ -251,7 +250,7 @@ public class GUI extends JFrame implements ChessUI {
             try {
                 wait();
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
         if (rollBack) {
@@ -263,7 +262,7 @@ public class GUI extends JFrame implements ChessUI {
             return Result.RESTART;
         }
 
-        Result res = Result.UNKNOWN.setMessage(from + to.toString());
+        Result res = Result.MOVE.setMessage(from + to.toString());
         from = null;
         to = null;
         repaint();

@@ -13,7 +13,7 @@ public class HumanPlayer implements Player {
     public Result makeMove(final Board board, final ChessUI UI) {
         Result result = UI.testAction();
 
-        if (result != Result.UNKNOWN) {
+        if (result != Result.MOVE) {
             return result;
         }
         String cellFrom = result.getMessage().substring(0, 2);

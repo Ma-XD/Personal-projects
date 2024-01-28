@@ -3,13 +3,14 @@ package chess.board;
 import java.util.InputMismatchException;
 import java.util.Objects;
 
+import static chess.board.Board.SIZE;
+
 public class Position {
-    private static final int size = 8;
     public final int row;
     public final int col;
 
     public Position(int row, int col) {
-        if (row < 0 || col < 0 || row >= size || col >= size) {
+        if (row < 0 || col < 0 || row >= SIZE || col >= SIZE) {
             throw new InputMismatchException();
         }
         this.row = row;
@@ -17,11 +18,11 @@ public class Position {
     }
 
     public Position(String strPos) {
-        this(size - strPos.charAt(1) + '0',strPos.charAt(0) - 'A');
+        this(SIZE - strPos.charAt(1) + '0',strPos.charAt(0) - 'A');
     }
 
     public static String strRow(int row) {
-        return Integer.toString(size - row);
+        return Integer.toString(SIZE - row);
     }
 
     public static String strCol(int col) {
@@ -37,8 +38,7 @@ public class Position {
         if (this == o) {
             return true;
         }
-        if (o instanceof Position) {
-            Position position = (Position) o;
+        if (o instanceof Position position) {
             return row == position.row &&
                     col == position.col;
         }

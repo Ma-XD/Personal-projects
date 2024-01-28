@@ -1,7 +1,7 @@
 package chess;
 
 public enum Result {
-    CHECK, CHECKMATE, DRAW, STALEMATE, UNKNOWN, ERROR, REPLACE, EXIT, ROLLBACK, RESTART;
+    CHECK, CHECKMATE, DRAW, STALEMATE, MOVE, ERROR, REPLACE, EXIT, ROLLBACK, RESTART;
 
     private static String message = "";
 

@@ -9,7 +9,7 @@ public class Board {
     public final Map<FigureName, Integer> WHITE_COUNTS = new HashMap<>();
     public final Map<FigureName, Integer> BLACK_COUNTS = new HashMap<>();
 
-    private final int SIZE = 8;
+    public static final int SIZE = 8;
     private final Cell[][] cells;
     private Colour turn;
     private int movesCnt = 0;
@@ -159,16 +159,16 @@ public class Board {
     }
 
     public Result move(Move move) {
-        int rowFrom = move.from.row;
-        int colFrom = move.from.col;
+        int rowFrom = move.from().row;
+        int colFrom = move.from().col;
         Figure figure = getFigure(rowFrom, colFrom);
 
         if (figure.getColour() != turn) {
-            return Result.ERROR.setMessage("Invalid figure for moving: " + figure.getName() + " on " + move.from);
+            return Result.ERROR.setMessage("Invalid figure for moving: " + figure.getName() + " on " + move.from());
         }
         String message = figure + ": " + move;
 
-        if (findPosition(figure, move.to)) {
+        if (findPosition(figure, move.to())) {
             return testMove(figure, move, message);
         }
         return Result.ERROR.setMessage("Invalid move: " + move);
@@ -206,18 +206,18 @@ public class Board {
     }
 
     private void makeMove(Move move) {
-        Figure figure = getFigure(move.from);
+        Figure figure = getFigure(move.from());
         figure.setMoveStatus(true);
-        putFigure(new Empty(), move.from);
-        putFigure(figure, move.to);
+        putFigure(new Empty(), move.from());
+        putFigure(figure, move.to());
     }
 
     private boolean isCastling(Figure figure, Move move) {
-        if (figure.getName() == FigureName.KING && Math.abs(move.from.col - move.to.col) == 2) {
-            int dCol = (move.to.col - move.from.col) / 2;
+        if (figure.getName() == FigureName.KING && Math.abs(move.from().col - move.to().col) == 2) {
+            int dCol = (move.to().col - move.from().col) / 2;
             int rookCol = dCol < 0 ? 0 : SIZE - 1;
-            Position rookFrom = new Position(move.from.row, rookCol);
-            Position rookTo = new Position(move.from.row, move.to.col - dCol);
+            Position rookFrom = new Position(move.from().row, rookCol);
+            Position rookTo = new Position(move.from().row, move.to().col - dCol);
             makeMove(new Move(rookFrom, rookTo));
             return true;
         }
@@ -247,7 +247,7 @@ public class Board {
         result = testDraw(result);
         message = result.getMessage() + message;
 
-        if (result != Result.UNKNOWN) {
+        if (result != Result.MOVE) {
             message += ", " + result;
         }
         strMove = "Move " + movesCnt + ": " + message;
@@ -256,18 +256,18 @@ public class Board {
 
     private Result testReplacement(Figure pawn) {
         if (pawn.getName() != FigureName.PAWN) {
-            return Result.UNKNOWN;
+            return Result.MOVE;
         }
         if (pawn.getColour() == Colour.WHITE && pawn.getPosition().row == 0 ||
                 pawn.getColour() == Colour.BLACK && pawn.getPosition().row == SIZE - 1
         ) {
             return Result.REPLACE;
         }
-        return Result.UNKNOWN;
+        return Result.MOVE;
     }
 
     private Result testCheck(Figure king) {
-        return isCheck(king) ? Result.CHECK : Result.UNKNOWN;
+        return isCheck(king) ? Result.CHECK : Result.MOVE;
     }
 
     public boolean isCheck(Figure king) {

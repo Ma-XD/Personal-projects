@@ -59,20 +59,22 @@ public class CUI implements ChessUI {
     }
 
     private void createNames() {
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
+        for (int row = 0; row < Board.SIZE; row++) {
+            for (int col = 0; col < Board.SIZE; col++) {
                 cellNames.add(new Position(row, col).toString());
             }
         }
     }
 
     public void showInterface() {
-        System.out.println("Game Interface:" + "\n\n" +
-                "To make move you should write column and row of figure and cell where you want to move it." + "\n" +
-                "Columns: A..H, rows: 1..8, example: E2 E4" + "\n" +
-                "Keywords: EXIT (to exit), ROLLBACK <number> (roll back by number of steps)" + "\n" +
-                "==================" + "\n" +
-                "WHITE starts:");
+        System.out.println("""
+                Game Interface:
+
+                To make move you should write column and row of figure and cell where you want to move it.
+                Columns: A..H, rows: 1..8, example: E2 E4
+                Keywords: EXIT (to exit), ROLLBACK <number> (roll back by number of steps)
+                ==================
+                WHITE starts:""");
     }
 
     @Override
@@ -124,7 +126,7 @@ public class CUI implements ChessUI {
             String to = in.next();
 
             if (correctInput(from, to)) {
-                return Result.UNKNOWN.setMessage(from + to);
+                return Result.MOVE.setMessage(from + to);
             }
             invalidMove("Invalid input: position consist of letter in A..H and number in 1..8");
         }

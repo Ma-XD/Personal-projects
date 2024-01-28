@@ -1,12 +1,14 @@
 package chess.board;
 
-public class Move {
-    public final Position from;
-    public final Position to;
+public record Move(Position from, Position to) {
+    @Override
+    public Position from() {
+        return from;
+    }
 
-    public Move(Position from, Position to) {
-        this.from = from;
-        this.to = to;
+    @Override
+    public Position to() {
+        return to;
     }
 
     @Override
